@@ -38,7 +38,7 @@ export default function EvaluationBar({
         }
 
     }
-
+    const isMobile = window.innerWidth <= 768;
     return (
 
         <div className="evaluation-wrapper">
@@ -59,25 +59,35 @@ export default function EvaluationBar({
 
             <div
                 className="evaluation-container"
-                style={{
-                    height: "680px",
-                    width: "22px",
-                    background: "red",
-                }}
+                style={
+                    isMobile
+                        ? {
+                            width: "100%",
+                            height: "14px",
+                        }
+                        : {
+                            width: "22px",
+                            height: "680px",
+                        }
+                }
             >
 
                 <div
                     className="evaluation-black"
-                    style={{
-                        flex: 100 - percent,
-                    }}
+                    style={
+                        isMobile
+                            ? { width: `${100 - percent}%` }
+                            : { height: `${100 - percent}%` }
+                    }
                 />
 
                 <div
                     className="evaluation-white"
-                    style={{
-                        flex: percent,
-                    }}
+                    style={
+                        isMobile
+                            ? { width: `${percent}%` }
+                            : { height: `${percent}%` }
+                    }
                 />
 
             </div>
