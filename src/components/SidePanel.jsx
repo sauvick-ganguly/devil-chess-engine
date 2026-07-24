@@ -147,7 +147,16 @@ function SidePanel({ game }) {
                         capturedByWhite.map((piece, index) => (
 
                             <span key={index}>
-                                {symbols[piece.color][piece.type]}
+                                <img
+                                    className="captured-piece"
+                                    src={symbols[piece.color][piece.type]}
+                                    alt={piece.type}
+                                    style={{
+                                        width: "24px",
+                                        height: "24px",
+                                        objectFit: "contain"
+                                    }}
+                                />
                             </span>
 
                         ))
@@ -184,9 +193,16 @@ function SidePanel({ game }) {
 
                         capturedByBlack.map((piece, index) => (
 
-                            <span key={index}>
-                                {symbols[piece.color][piece.type]}
-                            </span>
+                            <img
+                                    className="captured-piece"
+                                    src={symbols[piece.color][piece.type]}
+                                    alt={piece.type}
+                                    style={{
+                                        width: "24px",
+                                        height: "24px",
+                                        objectFit: "contain"
+                                    }}
+                                />
 
                         ))
 
