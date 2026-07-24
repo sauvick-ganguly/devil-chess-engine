@@ -1,22 +1,28 @@
 import { Fragment, useState } from "react";
-import blackWolf from "../assets/black/blackWolf.png";
+import whiteKing from "../assets/white/whiteKing1.png";
+import whiteRook from "../assets/white/whiteRook.png";
+import whitePawn from "../assets/white/whitePawn.png";
+import whiteWolf from "../assets/white/whiteWolf.png";
 
+import blackKing from "../assets/black/blackKing1.png";
+import blackRook from "../assets/black/blackRook.png";
+import blackPawn from "../assets/black/blackPawn.png";
+import blackWolf from "../assets/black/blackWolf.png";
 
 const symbols = {
     w: {
-        K: "♔",
-        R: "♖",
-        P: "♙",
-        W: "🐺",
+        K: whiteKing,
+        R: whiteRook,
+        P: whitePawn,
+        W: whiteWolf,
     },
     b: {
-        K: "♚",
-        R: "♜",
-        P: "♟",
-        W: "🐺",
+        K: blackKing,
+        R: blackRook,
+        P: blackPawn,
+        W: blackWolf,
     },
 };
-
 function SidePanel({ game }) {
 
     const [showMoveHistory, setShowMoveHistory] = useState(false);
@@ -240,21 +246,37 @@ function SidePanel({ game }) {
 
                                             <div className="w-mv">
                                                 {whiteMove &&
-                                                    <>
-                                                        {symbols[whiteMove.color][whiteMove.piece]}
-                                                        {" "}
-                                                        {whiteMove.notation}
-                                                    </>
+                                                    <div className="w-mv">
+                                                        {whiteMove && (
+                                                            <>
+                                                                <img
+                                                                    className="move-piece"
+                                                                    src={symbols[whiteMove.color][whiteMove.piece]}
+                                                                    alt={whiteMove.piece}
+                                                                />
+                                                                {" "}
+                                                                {whiteMove.notation}
+                                                            </>
+                                                        )}
+                                                    </div>
                                                 }
                                             </div>
 
                                             <div className="b-mv">
                                                 {blackMove &&
-                                                    <>
-                                                        {symbols[blackMove.color][blackMove.piece]}
-                                                        {" "}
-                                                        {blackMove.notation}
-                                                    </>
+                                                    <div className="b-mv">
+                                                        {blackMove && (
+                                                            <>
+                                                                <img
+                                                                    className="move-piece"
+                                                                    src={symbols[blackMove.color][blackMove.piece]}
+                                                                    alt={blackMove.piece}
+                                                                />
+                                                                {" "}
+                                                                {blackMove.notation}
+                                                            </>
+                                                        )}
+                                                    </div>
                                                 }
                                             </div>
 
