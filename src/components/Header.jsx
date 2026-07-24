@@ -24,9 +24,7 @@ function Header({ game }) {
         </div>
       </div>
 
-      <div className="top-actions">
-        <button className="primary">New Game</button>
-      </div>
+      
     </header>
   );
 }
