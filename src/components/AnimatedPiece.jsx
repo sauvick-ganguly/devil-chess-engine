@@ -1,25 +1,59 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Piece from "./Piece";
 
-function AnimatedPiece({ piece, from, to, squareSize }) {
+function AnimatedPiece({
+    piece,
+    from,
+    to,
+    squareSize,
+    flipped
+}) {
 
     const [transform, setTransform] = useState("translate(0%, 0%)");
 
+    const displayFrom = useMemo(() => {
+
+        if (!flipped) return from;
+
+        return {
+            row: 7 - from.row,
+            col: 7 - from.col
+        };
+
+    }, [from, flipped]);
+
+    const displayTo = useMemo(() => {
+
+        if (!flipped) return to;
+
+        return {
+            row: 7 - to.row,
+            col: 7 - to.col
+        };
+
+    }, [to, flipped]);
+
     useEffect(() => {
+
+        setTransform("translate(0%, 0%)");
+
         requestAnimationFrame(() => {
-            const dx = (to.col - from.col) * 100;
-            const dy = (to.row - from.row) * 100;
+
+            const dx = (displayTo.col - displayFrom.col) * 100;
+            const dy = (displayTo.row - displayFrom.row) * 100;
 
             setTransform(`translate(${dx}%, ${dy}%)`);
+
         });
-    }, [from, to]);
+
+    }, [displayFrom, displayTo]);
 
     return (
         <div
             className="animated-piece"
             style={{
-                left: `${from.col * squareSize}%`,
-                top: `${from.row * squareSize}%`,
+                left: `${displayFrom.col * squareSize}%`,
+                top: `${displayFrom.row * squareSize}%`,
                 transform
             }}
         >

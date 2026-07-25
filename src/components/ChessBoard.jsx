@@ -663,6 +663,7 @@ function ChessBoard({ game }) {
                         from={animatingMove.from}
                         to={animatingMove.to}
                         squareSize={100 / 8}
+                        flipped={flipped}
                     />
                 )}
 
