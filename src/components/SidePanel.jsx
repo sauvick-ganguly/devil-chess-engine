@@ -3,11 +3,13 @@ import whiteKing from "../assets/white/whiteKing1.png";
 import whiteRook from "../assets/white/whiteRook.png";
 import whitePawn from "../assets/white/whitePawn.png";
 import whiteWolf from "../assets/white/whiteWolf.png";
+import whiteDevilPrelate from "../assets/white/whiteDevilPrelate.png";
 
 import blackKing from "../assets/black/blackKing1.png";
 import blackRook from "../assets/black/blackRook.png";
 import blackPawn from "../assets/black/blackPawn.png";
 import blackWolf from "../assets/black/blackWolf.png";
+import blackDevilPrelate from "../assets/black/blackDevilPrelate.png";
 import myPhoto from "../assets/sauvick.png";
 
 const symbols = {
@@ -16,12 +18,14 @@ const symbols = {
         R: whiteRook,
         P: whitePawn,
         W: whiteWolf,
+        D: whiteDevilPrelate,
     },
     b: {
         K: blackKing,
         R: blackRook,
         P: blackPawn,
         W: blackWolf,
+        D: blackDevilPrelate,
     },
 };
 function SidePanel({ game }) {

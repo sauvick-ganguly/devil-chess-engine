@@ -10,7 +10,7 @@ import { evaluateRook } from "./evaluateRook";
 export function evaluatePosition(board,lastMove) {
 
     let score = 0;
-
+    
     score += evaluateMaterial(board);
     score += evaluateMobility(board,lastMove);
     score += evaluateCenter(board);
@@ -19,6 +19,7 @@ export function evaluatePosition(board,lastMove) {
     score += evaluateKingSafety(board);
     score += evaluatePawnStructure(board);
     score += evaluateRook(board);
+    
 
     return score;
 }

@@ -9,6 +9,13 @@ import myPhoto from "./assets/sauvick.png";
 
 function App() {
   const game = useGame();
+  const isInitialPosition =
+  game.moveHistory.length === 0;
+
+const displayEvaluation =
+  isInitialPosition
+    ? game.evaluation - 103
+    : game.evaluation;
 
   return (
     <>
@@ -23,9 +30,9 @@ function App() {
           <div className="board-section">
             <ChessBoard game={game} />
           </div>
-
+          
           <EvaluationBar
-            evaluation={game.evaluation}
+            evaluation={displayEvaluation}
             gameOver={game.gameOver}
             winner={game.winner}
           />
