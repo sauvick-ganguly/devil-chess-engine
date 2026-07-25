@@ -8,6 +8,7 @@ import blackKing from "../assets/black/blackKing1.png";
 import blackRook from "../assets/black/blackRook.png";
 import blackPawn from "../assets/black/blackPawn.png";
 import blackWolf from "../assets/black/blackWolf.png";
+import myPhoto from "../assets/sauvick.png";
 
 const symbols = {
     w: {
@@ -342,8 +343,13 @@ function SidePanel({ game }) {
                     Flip Board
                 </button>
             </div>
+            
+            
         </div>
+        
     );
+    
+    
 }
 
 export default SidePanel;

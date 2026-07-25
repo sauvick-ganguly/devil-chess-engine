@@ -4,25 +4,25 @@ import SidePanel from "./components/SidePanel";
 import GameOverModal from "./components/GameOverModal";
 import PromotionModal from "./components/PromotionModal";
 import useGame from "./hooks/useGame";
-import bgVideo from "./assets/background.mp4";
 import EvaluationBar from "./components/EvaluationBar";
+import myPhoto from "./assets/sauvick.png";
 
 function App() {
-
   const game = useGame();
 
   return (
     <>
-      {/* Fixed Background */}
       <div className="background"></div>
 
-      {/* Main App */}
       <div className="app">
+
         <Header game={game} />
 
         <div className="layout">
 
-          <ChessBoard game={game} />
+          <div className="board-section">
+            <ChessBoard game={game} />
+          </div>
 
           <EvaluationBar
             evaluation={game.evaluation}
@@ -34,8 +34,18 @@ function App() {
 
         </div>
 
+        {/* Full-width Footer */}
+        <footer className="creator-card">
+          <img src={myPhoto} alt="Sauvick Ganguly" />
+
+          <p>Designed & Developed by</p>
+
+          <h3>Sauvick Ganguly</h3>
+        </footer>
+
         <GameOverModal game={game} />
         <PromotionModal game={game} />
+
       </div>
     </>
   );
