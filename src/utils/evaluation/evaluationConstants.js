@@ -5,9 +5,9 @@ export const PIECE_VALUES = {
     W: 540,   // Wolf
     D: 390,   // Devil Prelate (before revival)
     R: 500,   // Rook
-    K: 0      // Twin King
+    Q: 900,   // Revived Queen
+    K: 0      // King
 };
-
 // Piece-Specific Bonuses
 
 export const WOLF = {

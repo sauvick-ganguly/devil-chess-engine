@@ -3,6 +3,7 @@ import { inBounds } from "../boardUtils";
 import { pawnMoves } from "./pawnMoves";
 import { rookMoves } from "./rookMoves";
 import { kingMoves } from "./kingMoves";
+import { queenMoves } from "./queenmoves";
 import { wolfMoves } from "./wolfMoves";
 import { devilPrelateMoves } from "./devilPrelateMoves";
 
@@ -38,10 +39,14 @@ export function pieceMoves(board, row, col, lastMove, includeCastle = true) {
             kingMoves(board, row, col, push, piece, includeCastle);
             break;
 
+        case "Q":
+            queenMoves(board, row, col, push, piece);
+            break;
+
         case "W":
             wolfMoves(board, row, col, push, piece);
             break;
-            
+
         case "D":
             devilPrelateMoves(
                 board,

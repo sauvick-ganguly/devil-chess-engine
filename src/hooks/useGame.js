@@ -37,6 +37,15 @@ function useGame() {
 
     const [animatingMove, setAnimatingMove] = useState(null);
 
+    const [queenRevived, setQueenRevived] = useState({
+        w: false,
+        b: false,
+    });
+
+    const [revivalMessage, setRevivalMessage] = useState("");
+
+    const [revivingKing, setRevivingKing] = useState(null);
+
     const workerRef = useRef(null);
 
     // ==========================
@@ -97,6 +106,8 @@ function useGame() {
         setBoard(previous.board);
 
         setTurn(previous.turn);
+
+        setQueenRevived(previous.queenRevived);
 
         setCapturedByWhite(previous.capturedByWhite);
 
@@ -176,6 +187,14 @@ function useGame() {
         animatingMove,
         setAnimatingMove,
 
+        queenRevived,
+        setQueenRevived,
+
+        revivalMessage,
+        setRevivalMessage,
+
+        revivingKing,
+        setRevivingKing,
     };
 
 }

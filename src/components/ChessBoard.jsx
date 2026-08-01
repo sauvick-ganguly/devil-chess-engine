@@ -5,6 +5,8 @@ import GameOverModal from "./GameOverModal";
 import PromotionModal from "./PromotionModal";
 import { playSound } from "../utils/soundManager";
 import AnimatedPiece from "./AnimatedPiece";
+import whiteWolf from "../assets/white/whiteWolf.png";
+import blackWolf from "../assets/black/blackWolf.png";
 
 import {
     toChessSquare,
@@ -72,6 +74,15 @@ function ChessBoard({ game }) {
         flipped,
         setFlipped,
 
+        queenRevived,
+        setQueenRevived,
+
+        revivalMessage,
+        setRevivalMessage,
+
+        revivingKing,
+        setRevivingKing,
+
     } = game;
 
     const [gameStatus, setGameStatus] = useState({
@@ -83,6 +94,11 @@ function ChessBoard({ game }) {
     function handleNewGame() {
 
         setBoard(createInitialBoard());
+
+        setQueenRevived({
+            w: false,
+            b: false,
+        });
 
         setTurn("w");
 
@@ -252,6 +268,7 @@ function ChessBoard({ game }) {
         setBoard(previous.board);
         setTurn(previous.turn);
 
+
         setCapturedByWhite(previous.capturedByWhite);
         setCapturedByBlack(previous.capturedByBlack);
 
@@ -313,6 +330,8 @@ function ChessBoard({ game }) {
 
                         turn,
 
+                        queenRevived: { ...queenRevived },
+
                         capturedByWhite: [...capturedByWhite],
                         capturedByBlack: [...capturedByBlack],
 
@@ -337,9 +356,192 @@ function ChessBoard({ game }) {
                         (movedPiece.color === "w" && row === 0) ||
                         (movedPiece.color === "b" && row === 7)
                     );
+                console.log("Promotion?", isPromotion, movedPiece, row, col);
 
                 if (isPromotion) {
 
+                    // FIRST promotion in the game
+                    if (!queenRevived[movedPiece.color]) {
+
+                        const revivedBoard = newBoard.map(r => [...r]);
+
+                        // Remove the promoted pawn completely
+                        revivedBoard[row][col] = null;
+
+                        // Revive BOTH Queens
+                        for (let r = 0; r < 8; r++) {
+                            for (let c = 0; c < 8; c++) {
+
+                                const piece = revivedBoard[r][c];
+
+                                if (!piece) continue;
+
+                                if (
+                                    piece.type === "K" &&
+                                    piece.color === movedPiece.color &&
+                                    piece.id === 1   // Devil King
+                                ) {
+                                    
+                                    revivedBoard[r][c] = {
+                                        type: "Q",
+                                        color: movedPiece.color,
+                                        hasMoved: piece.hasMoved,
+                                    };
+                                }
+                            }
+                        }
+                        // Capture History
+                        if (capturedPiece) {
+
+                            if (turn === "w") {
+
+                                setCapturedByWhite(prev => [
+                                    ...prev,
+                                    capturedPiece
+                                ]);
+
+                            } else {
+
+                                setCapturedByBlack(prev => [
+                                    ...prev,
+                                    capturedPiece
+                                ]);
+
+                            }
+                        }
+
+                        setBoard(revivedBoard);
+
+                        setLastMove({
+                            piece: movedPiece.type,
+                            color: movedPiece.color,
+
+                            from: {
+                                row: selectedSquare.row,
+                                col: selectedSquare.col
+                            },
+
+                            to: {
+                                row,
+                                col
+                            }
+                        });
+
+                        setSelectedSquare(null);
+                        setLegalMoves([]);
+
+                        const nextTurn = turn === "w" ? "b" : "w";
+
+                        setQueenRevived(prev => ({
+                            ...prev,
+                            [movedPiece.color]: true,
+                        }));
+
+                        setRevivalMessage({
+                            icon: movedPiece.color === "w"
+                                ? whiteWolf
+                                : blackWolf,
+
+                            title: "The Devil's Curse has been Lifted",
+
+                            subtitle: movedPiece.color === "w"
+                                ? "The White Queen has returned."
+                                : "The Black Queen has returned."
+                        });
+
+                        setTimeout(() => {
+                            setRevivalMessage("");
+                        }, 3000);
+
+                        const status = getGameStatus(
+                            revivedBoard,
+                            nextTurn,
+                            "REVIVAL"
+                        );
+
+                        setGameStatus(status);
+
+                        const enemyColor = turn === "w" ? "b" : "w";
+
+                        const { check, checkmate } = getCheckNotation(
+                            revivedBoard,
+                            enemyColor,
+                            nextTurn,
+                            "REVIVAL"
+                        );
+
+                        let sound = "promote";
+
+                        if (status.gameOver) {
+                            sound = "checkmate";
+                        }
+                        else if (check) {
+                            sound = "check";
+                        }
+                        else if (capturedPiece) {
+                            sound = "capture";
+                        }
+
+                        // Move History
+                        setMoveHistory(prev => [
+                            ...prev,
+                            {
+                                piece: "P",
+                                color: movedPiece.color,
+
+                                from: toChessSquare(
+                                    selectedSquare.row,
+                                    selectedSquare.col
+                                ),
+
+                                to: toChessSquare(
+                                    row,
+                                    col
+                                ),
+
+                                captured: capturedPiece
+                                    ? capturedPiece.type
+                                    : null,
+
+                                capturedColor: capturedPiece
+                                    ? capturedPiece.color
+                                    : null,
+
+                                notation: moveToNotation({
+                                    piece: "P",
+                                    from: toChessSquare(
+                                        selectedSquare.row,
+                                        selectedSquare.col
+                                    ),
+                                    to: toChessSquare(
+                                        row,
+                                        col
+                                    ),
+                                    captured: capturedPiece
+                                        ? capturedPiece.type
+                                        : null,
+                                    promotion: "Q",
+                                    check,
+                                    checkmate
+                                })
+                            }
+                        ]);
+
+                        if (status.gameOver) {
+
+                            setGameOver(true);
+                            setWinner(status.winner);
+
+                            playSound(sound);
+
+                            return;
+                        }
+                        setTurn(nextTurn);
+                        playSound(sound);
+                        return;
+
+                    }
+                    // Normal promotions after revival
                     setBoard(newBoard);
 
                     setPendingPromotionMove({
@@ -461,7 +663,7 @@ function ChessBoard({ game }) {
                 const { check, checkmate } = getCheckNotation(
                     newBoard,
                     enemyColor,
-                    nextTurn
+                    nextTurn,
                 );
 
                 let sound = "move";
@@ -669,6 +871,21 @@ function ChessBoard({ game }) {
 
             </div>
 
+            {revivalMessage && (
+                <div className="revival-banner">
+
+                    <img
+                        src={revivalMessage.icon}
+                        alt="Wolf"
+                        className="revival-wolf"
+                    />
+
+                    <h2>{revivalMessage.title}</h2>
+
+                    <p>{revivalMessage.subtitle}</p>
+
+                </div>
+            )}
             <GameOverModal
                 isOpen={gameOver}
                 winner={winner}

@@ -1,11 +1,13 @@
 import { Fragment, useState } from "react";
 import whiteKing from "../assets/white/whiteKing1.png";
+import whiteQueen from "../assets/white/whiteQueen.png";
 import whiteRook from "../assets/white/whiteRook.png";
 import whitePawn from "../assets/white/whitePawn.png";
 import whiteWolf from "../assets/white/whiteWolf.png";
 import whiteDevilPrelate from "../assets/white/whiteDevilPrelate.png";
 
 import blackKing from "../assets/black/blackKing1.png";
+import blackQueen from "../assets/black/blackQueen.png";
 import blackRook from "../assets/black/blackRook.png";
 import blackPawn from "../assets/black/blackPawn.png";
 import blackWolf from "../assets/black/blackWolf.png";
@@ -15,6 +17,7 @@ import myPhoto from "../assets/sauvick.png";
 const symbols = {
     w: {
         K: whiteKing,
+        Q: whiteQueen,
         R: whiteRook,
         P: whitePawn,
         W: whiteWolf,
@@ -22,6 +25,7 @@ const symbols = {
     },
     b: {
         K: blackKing,
+        Q: blackQueen,
         R: blackRook,
         P: blackPawn,
         W: blackWolf,

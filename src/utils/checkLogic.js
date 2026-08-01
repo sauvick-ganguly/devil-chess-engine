@@ -90,7 +90,7 @@ export function countKingsInCheck(board, color) {
                 if (!piece || piece.color !== enemyColor)
                     continue;
 
-                const moves = pieceMoves(board, row, col, false);
+                const moves = pieceMoves(board, row, col, null, false);
 
                 for (const move of moves) {
 
@@ -136,7 +136,7 @@ export function getKings(board, color) {
     return kings;
 }
 
-export function isSpecificKingInCheck(board, color, kingRow, kingCol){
+export function isSpecificKingInCheck(board, color, kingRow, kingCol) {
 
     const enemyColor = color === "w" ? "b" : "w";
 

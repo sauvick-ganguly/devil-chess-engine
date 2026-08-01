@@ -12,6 +12,9 @@ import whiteWolf from "../assets/white/whiteWolf.png";
 import blackKing1 from "../assets/black/blackKing1.png"; // Normal Cross
 import blackKing2 from "../assets/black/blackKing2.png"; // Inverted Cross
 
+import blackQueen from "../assets/black/blackQueen.png";
+import whiteQueen from "../assets/white/whiteQueen.png";
+
 import whiteKing1 from "../assets/white/whiteKing1.png"; // Normal Cross
 import whiteKing2 from "../assets/white/whiteKing2.png"; // Inverted Cross
 
@@ -61,6 +64,12 @@ function Piece({ piece }) {
             ? blackKing1
             : blackKing2;
       }
+      break;
+
+    case "Q":
+      image = piece.color === "w"
+        ? whiteQueen
+        : blackQueen;
       break;
 
     default:

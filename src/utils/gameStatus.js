@@ -78,11 +78,41 @@ export function hasAnyLegalMove(board, color) {
     return false;
 }
 
+function hasQueen(board, color) {
+
+    for (let row = 0; row < 8; row++) {
+        for (let col = 0; col < 8; col++) {
+
+            const piece = board[row][col];
+
+            if (
+                piece &&
+                piece.type === "Q" &&
+                piece.color === color
+            ) {
+                return true;
+            }
+        }
+    }
+
+    return false;
+}
 export function getGameStatus(board, turn) {
 
-    // -------------------------
+    // ==========================================
+    // REVIVAL PHASE (Normal Chess Rules)
+    // ==========================================
+    const whiteRevived = hasQueen(board, "w");
+    const blackRevived = hasQueen(board, "b");
+
+
+    // ==========================================
+    // DEVIL PHASE (Original Twin King Rules)
+    // ==========================================
+
     // Rule 1 : Individual Checkmate
-    // -------------------------
+
+    if (!whiteRevived) {
 
     const whiteKings = getKings(board, "w");
 
@@ -99,6 +129,25 @@ export function getGameStatus(board, turn) {
         }
     }
 
+}
+else {
+
+    if (
+        isKingInCheck(board, "w") &&
+        !hasEscapeMove(board, "w")
+    ) {
+        return {
+            gameOver: true,
+            winner: "b",
+            draw: false,
+            reason: "Checkmate"
+        };
+    }
+
+}
+
+    if (!blackRevived) {
+
     const blackKings = getKings(board, "b");
 
     for (const king of blackKings) {
@@ -107,16 +156,31 @@ export function getGameStatus(board, turn) {
 
             return {
                 gameOver: true,
-                winner: "w",
+                winner: "b",
                 draw: false,
                 reason: "Checkmate"
             };
         }
     }
 
-    // -------------------------
+}
+else {
+
+    if (
+        isKingInCheck(board, "b") &&
+        !hasEscapeMove(board, "b")
+    ) {
+        return {
+            gameOver: true,
+            winner: "w",
+            draw: false,
+            reason: "Checkmate"
+        };
+    }
+
+}
+
     // Rule 2 & Rule 3
-    // -------------------------
 
     const whiteChecks = countKingsInCheck(board, "w");
     const blackChecks = countKingsInCheck(board, "b");
@@ -145,9 +209,7 @@ export function getGameStatus(board, turn) {
         };
     }
 
-    // -------------------------
     // Rule 4 : Stalemate
-    // -------------------------
 
     if (turn === "w") {
 
@@ -186,11 +248,14 @@ export function getGameStatus(board, turn) {
     };
 }
 
-export function getCheckNotation(board, color, turn) {
+export function getCheckNotation(board, color, turn, gamePhase) {
 
     const checks = countKingsInCheck(board, color);
 
-    const status = getGameStatus(board, turn);
+    const status = getGameStatus(
+        board,
+        turn
+    );
 
     return {
         check: checks > 0 && !status.gameOver,
