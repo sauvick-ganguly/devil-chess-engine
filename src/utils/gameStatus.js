@@ -156,13 +156,12 @@ else {
 
             return {
                 gameOver: true,
-                winner: "b",
+                winner: "w",
                 draw: false,
                 reason: "Checkmate"
             };
         }
     }
-
 }
 else {
 

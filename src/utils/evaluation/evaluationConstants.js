@@ -1,4 +1,6 @@
+// ==========================
 // Material Values (Centipawns)
+// ==========================
 
 export const PIECE_VALUES = {
     P: 100,   // Pawn
@@ -8,7 +10,10 @@ export const PIECE_VALUES = {
     Q: 900,   // Revived Queen
     K: 0      // King
 };
-// Piece-Specific Bonuses
+
+// ==========================
+// Wolf Evaluation
+// ==========================
 
 export const WOLF = {
     CENTER_CONTROL: 15,
@@ -18,6 +23,10 @@ export const WOLF = {
     TRAPPED: -40,
 };
 
+// ==========================
+// Devil Prelate Evaluation
+// ==========================
+
 export const DEVIL_PRELATE = {
     VALUE_AFTER_REVIVAL: 330,
     DIAGONAL_WEIGHT: 4,
@@ -25,11 +34,30 @@ export const DEVIL_PRELATE = {
     EXTRA_LIFE_BONUS: 25,
 };
 
+// ==========================
+// Queen Evaluation
+// ==========================
+
+export const QUEEN = {
+    CENTER_CONTROL: 8,
+    MOBILITY: 4,
+    ATTACKING_KING: 20,
+    OPEN_LINE: 6,
+};
+
+// ==========================
+// Rook Evaluation
+// ==========================
+
 export const ROOK = {
     OPEN_FILE: 25,
     SEVENTH_RANK: 20,
     CONNECTED_ROOK: 20,
 };
+
+// ==========================
+// Pawn Evaluation
+// ==========================
 
 export const PAWN = {
     PASSED: 30,
@@ -38,6 +66,10 @@ export const PAWN = {
     DOUBLED: -10,
 };
 
+// ==========================
+// King Evaluation
+// ==========================
+
 export const KING = {
     SAFE: 20,
     EXPOSED: -30,
@@ -45,7 +77,9 @@ export const KING = {
     BOTH_EXPOSED: -80,
 };
 
-// General Evaluation
+// ==========================
+// General Evaluation Weights
+// ==========================
 
 export const EVALUATION = {
     MOBILITY_WEIGHT: 3,

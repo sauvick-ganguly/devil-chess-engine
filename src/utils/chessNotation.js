@@ -21,7 +21,9 @@ export function moveToNotation({
         P: "",
         R: "R",
         W: "W",
-        K: "K"
+        K: "K",
+        Q: "Q",
+        D: "D",
     };
 
     let notation = "";

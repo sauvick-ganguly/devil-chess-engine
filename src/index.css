@@ -1096,3 +1096,208 @@ font-family: "Cinzel", serif;
     }
 
 }
+
+/* ==========================
+   Overlay
+========================== */
+
+.modal-overlay {
+
+    position: fixed;
+    inset: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(0, 0, 0, 0.82);
+    backdrop-filter: blur(6px);
+
+    z-index: 10000;
+
+    animation: fadeIn .35s ease;
+}
+
+/* ==========================
+   Modal
+========================== */
+
+.game-over-modal {
+
+    width: 500px;
+    max-width: 90vw;
+
+    padding: 35px 45px;
+
+    text-align: center;
+
+    background: linear-gradient(
+        180deg,
+        #1d1d1d,
+        #090909
+    );
+
+    border: 3px solid #b8860b;
+    border-radius: 18px;
+
+    box-shadow:
+        0 0 18px rgba(255, 215, 0, .35),
+        0 0 50px rgba(0, 0, 0, .8);
+
+    animation: modalAppear .45s ease;
+}
+
+/* ==========================
+   Heading
+========================== */
+
+.game-over-modal h1 {
+
+    margin: 0;
+
+    font-size: 52px;
+
+    color: #d4af37;
+
+    font-family: "UnifrakturCook", serif;
+
+    letter-spacing: 2px;
+
+    text-shadow:
+        0 0 12px rgba(255, 215, 0, .45);
+
+}
+
+/* ==========================
+   Winner
+========================== */
+
+.game-over-modal h2 {
+
+    margin-top: 22px;
+
+    font-size: 34px;
+
+    color: #ffffff;
+
+    font-family: "Cinzel", serif;
+
+    letter-spacing: 1px;
+
+}
+
+/* ==========================
+   Reason
+========================== */
+
+.game-over-modal h3 {
+
+    margin-top: 12px;
+
+    font-size: 22px;
+
+    color: #cfcfcf;
+
+    font-weight: 400;
+
+    font-family: "Cinzel", serif;
+
+}
+
+/* ==========================
+   Buttons
+========================== */
+
+.modal-buttons {
+
+    margin-top: 35px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.modal-buttons button {
+
+    padding: 14px 38px;
+
+    border: 2px solid #d4af37;
+    border-radius: 10px;
+
+    background: #242424;
+
+    color: white;
+
+    font-size: 18px;
+
+    font-family: "Cinzel", serif;
+
+    cursor: pointer;
+
+    transition:
+        transform .2s,
+        background .2s,
+        box-shadow .2s;
+}
+
+.modal-buttons button:hover {
+
+    background: #b8860b;
+
+    color: black;
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 0 15px rgba(255, 215, 0, .5);
+
+}
+
+.modal-buttons button:active {
+
+    transform: scale(.96);
+
+}
+
+/* ==========================
+   Animations
+========================== */
+
+@keyframes fadeIn {
+
+    from {
+
+        opacity: 0;
+
+    }
+
+    to {
+
+        opacity: 1;
+
+    }
+
+}
+
+@keyframes modalAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            scale(.8)
+            translateY(-20px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            scale(1)
+            translateY(0);
+
+    }
+
+}
